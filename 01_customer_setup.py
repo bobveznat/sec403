@@ -28,7 +28,7 @@ trust_policy = Policy(
 )
 print trust_policy.to_json()
 
-iam_conn = boto.iam.connect_to_region('us-west-2')
+iam_conn = boto.iam.connect_to_region('universal')
 iam_utils.update_policy(
     iam_conn,
     'easy-describe',

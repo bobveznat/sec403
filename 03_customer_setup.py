@@ -11,7 +11,7 @@ it with only that access.
 import boto.iam
 import iam_utils
 
-from awacs.aws import Allow, Policy, Statement, Action, AWSPrincipal
+from awacs.aws import Allow, Policy, Statement, Action, AWSPrincipal, Condition, StringEquals
 from awacs import ec2, iam, sts
 
 cloud_mgmt_platform_acct_id = '032298565451'
@@ -52,6 +52,12 @@ cloud_mgmt_platform_trust_policy = Policy(
            Effect=Allow,
            Action=[sts.AssumeRole],
            Principal=AWSPrincipal(cloud_mgmt_platform_arn),
+           Condition=Condition(
+               StringEquals(
+                   'sts:ExternalId',
+                   '2d6012e95f4942b9b5255274430a4ca2'
+                )
+            )
         ),
     ],
 )

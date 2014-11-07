@@ -9,13 +9,21 @@ readonly case we know that our application only needs read access so we provide
 it with only that access.
 """
 import boto.iam
+
+from awacs import ec2, sts
+from awacs.aws import (
+    Allow,
+    AWSPrincipal,
+    Condition,
+    Policy,
+    Statement,
+    StringEquals,
+)
+
 import iam_utils
 
-from awacs.aws import Allow, Policy, Statement, Action, AWSPrincipal, Condition, StringEquals
-from awacs import ec2, iam, sts
 
-cloud_mgmt_platform_acct_id = '032298565451'
-cloud_mgmt_platform_arn = iam.ARN(cloud_mgmt_platform_acct_id, 'root')
+cloud_mgmt_platform_arn = 'arn:aws:iam::032298565451:root'
 
 readonly_access_policy = Policy(
     Statement=[

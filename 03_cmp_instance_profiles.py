@@ -29,7 +29,7 @@ customer account.
 import boto.iam
 
 from awacs.aws import Allow, Policy, Statement, Principal
-from awacs import ec2, iam, sts, sqs
+from awacs import iam, sts, sqs
 
 import iam_utils
 

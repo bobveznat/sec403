@@ -8,7 +8,7 @@ Allows the role to be assumed by `cmp_account_id`.
 import boto.iam
 import iam_utils
 
-from awacs.aws import Allow, Policy, Statement, Action, AWSPrincipal
+from awacs.aws import Allow, Policy, Statement, AWSPrincipal
 from awacs import ec2, iam, sts
 
 cmp_account_id = '032298565451'

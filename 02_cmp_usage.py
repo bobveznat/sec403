@@ -2,8 +2,8 @@ import boto.sts
 import boto.ec2
 from boto.exception import EC2ResponseError
 
-from awacs.aws import Action, Allow, Policy, Statement
-from awacs import ec2, iam, sts
+from awacs.aws import Allow, Policy, Statement
+from awacs import ec2
 
 import iam_utils
 
@@ -18,7 +18,7 @@ reduced_access_policy = Policy(
     Statement=[
         Statement(
             Effect=Allow,
-            Action=[ec2.DescribeInstances,],
+            Action=[ec2.DescribeInstances],
             Resource=['*'],
         ),
     ]
@@ -56,4 +56,3 @@ if __name__ == '__main__':
     token = iam_utils.Token(assumed_role.credentials)
     print '------------ Trying with full privileges'
     do_tags(token)
-

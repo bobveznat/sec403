@@ -1,3 +1,7 @@
+"""Uses AssumeRole to gain access to a customer account.
+
+Assumes the role created in the customer account by 01_customer_setup.py.
+"""
 import boto.sts
 import boto.ec2
 

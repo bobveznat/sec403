@@ -2,7 +2,7 @@ import boto.sts
 import boto.ec2
 from boto.exception import EC2ResponseError
 
-from awacs.aws import Allow, Policy, Statement, Action, AWSPrincipal, Condition, StringEquals
+from awacs.aws import Action, Allow, Policy, Statement
 from awacs import ec2, iam, sts
 
 import iam_utils
@@ -23,6 +23,7 @@ reduced_access_policy = Policy(
         ),
     ]
 )
+
 
 def do_tags(token):
     # Using the temporary creds, run DescribeInstances

@@ -38,16 +38,12 @@ iam_conn = boto.iam.connect_to_region('universal')
 
 my_aws_account_id = '032298565451'
 
-readonly_role_name = 'ReadonlyPolicy'
 # Here, and we do this again in modifyinstances_role_arn below, we have a
 # placed an asterisk in the account id section of the arn. This allows the user
-# of this policy to assume a role named `readonly_role_name` within any
+# of this policy to assume a role named ReadonlyPolicy within any
 # customer account that allows us to (via their trust policy)
-readonly_role_arn = iam.ARN('*', 'role/%s' % (readonly_role_name,))
-
-modifyinstances_role_name = 'ModifyInstancesPolicy'
-modifyinstances_role_arn = iam.ARN(
-    '*', 'role/%s' % (modifyinstances_role_name,))
+readonly_role_arn = 'arn:aws:iam::*:role/ReadonlyPolicy'
+modifyinstances_role_arn = 'arn:aws:iam::*:role/ModifyInstancesPolicy'
 
 cloudwatch_role_arn = iam.ARN('*', 'role/brkt-cloudwatch')
 sqs_arn = sqs.ARN('us-west-2', my_aws_account_id, 'theQueueName')
@@ -94,7 +90,7 @@ apptier_access_policy = Policy(
         Statement(
             Effect=Allow,
             Action=[sts.AssumeRole],
-            Resource=[modifyinstances_role_arn],
+            Resource=[readonly_role_arn],
         ),
     ]
 )

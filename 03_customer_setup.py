@@ -31,7 +31,7 @@ modifyinstances_access_policy = Policy(
     Statement=[
         Statement(
             Effect=Allow,
-            Action=[ec2.RunInstances, ec2.StopInstances],
+            Action=[ec2.StartInstances, ec2.StopInstances],
             Resource=['*'],
         ),
     ]

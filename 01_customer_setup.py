@@ -1,9 +1,17 @@
+"""Creates a role named easy-describe in an account.
+
+This role contains an access policy that grants DescribeInstance and CreateTags
+permission.
+
+Allows the role to be assumed by `cmp_account_id`.
+"""
 import boto.iam
 import iam_utils
 
 from awacs.aws import Allow, Policy, Statement, Action, AWSPrincipal
 from awacs import ec2, iam, sts
 
+cmp_account_id = '032298565451'
 
 access_policy = Policy(
     Statement=[
@@ -16,7 +24,7 @@ access_policy = Policy(
 )
 print access_policy.to_json()
 
-cloud_mgmt_platform_arn = iam.ARN('032298565451', 'root')
+cloud_mgmt_platform_arn = iam.ARN(cmp_account_id, 'root')
 trust_policy = Policy(
     Statement=[
        Statement(

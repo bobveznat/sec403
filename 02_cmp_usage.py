@@ -1,8 +1,9 @@
 import boto.sts
 import boto.ec2
 from boto.exception import EC2ResponseError
+import datetime
 
-from awacs.aws import Allow, Policy, Statement
+from awacs.aws import Allow, Policy, Statement, DateLessThan, Condition
 from awacs import ec2
 
 import iam_utils
@@ -14,12 +15,20 @@ role_arn = 'arn:aws:iam::%s:role/%s' % (customer_id, role_name,)
 
 sts_conn = boto.sts.STSConnection()
 
+now_plus_60 = datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
+big_iso_time = now_plus_60.isoformat()
+iso_time = big_iso_time[:big_iso_time.rfind('.')] + 'Z'
+
 reduced_access_policy = Policy(
     Statement=[
         Statement(
             Effect=Allow,
             Action=[ec2.DescribeInstances],
             Resource=['*'],
+            # This reduction of policy knocks our creds down to only working
+            # until iso_time. Kind of useful to work around the minimum
+            # validity period of STS creds is 15 minutes.
+            Condition=Condition(DateLessThan('aws:CurrentTime', iso_time)),
         ),
     ]
 )

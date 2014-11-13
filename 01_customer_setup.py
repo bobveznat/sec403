@@ -24,7 +24,7 @@ access_policy = Policy(
 )
 print access_policy.to_json()
 
-cloud_mgmt_platform_arn = iam.ARN(cmp_account_id, 'root')
+cloud_mgmt_platform_arn = 'arn:aws:iam::%s:root' % (cmp_account_id,)
 trust_policy = Policy(
     Statement=[
        Statement(
